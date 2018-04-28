@@ -1,0 +1,40 @@
+卷 DATA 的文件夹 PATH 列表
+卷序列号为 E0C1-2138
+F:.
+
+│  App.vue                         # 根组件
+│  main.js                         # 入口文件
+│  
+├─assets
+│  │  
+│  ├─image
+│  │      default.png             # 默认图片
+│  │      
+│  ├─js
+│  │      common.js               # 封装网络请求
+│  │      config.js               # 配置文件
+│  │      
+│  └─style
+│          index.css               # 公共样式
+│          vars.scss
+│          
+├─components
+│      image-upload.vue            # 图片上传
+│      
+├─router
+│      index.js                    # 路由配置
+│      
+└─views
+    │  Login.vue                   # 登录页面
+    │  Master.vue                  # 主页面
+    │  
+    ├─order
+    │      Order.vue               # 订单页面
+    │      
+    ├─university
+    │      AddUniversity.vue       # 新建高校页面
+    │      University.vue          # 高校列表页面
+    │      
+    └─user
+            User.vue                # 用户列表页面
+            
