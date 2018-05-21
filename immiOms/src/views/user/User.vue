@@ -19,18 +19,16 @@
             <th>毕业院校</th>
             <th>专业学科</th>
             <th>学位</th>
-            <th>累计消费</th>
           </thead>
           <tbody>
             <tr v-for="(item, index) in userList" :key="index">
               <td>{{ item.user_name }}</td>
               <td>{{ item.nick_name }}</td>
-              <td>{{ item.mobile }}</td>
+              <td>{{ item.mobile_phone }}</td>
               <td>{{ item.email }}</td>
               <td>{{ item.university }}</td>
               <td>{{ item.subject }}</td>
-              <td>{{ item.degree }}</td>
-              <td>{{ item.payment}}</td>
+              <td>{{ item.academic_degree }}</td>
             </tr>
           </tbody>
         </table>
@@ -48,54 +46,8 @@ export default {
   name: 'User',
   data() {
     return {
-      userList: [{
-                "open_id": "olx8H0UHfk3RrzTe4ofZBWzl8J-0",
-                "nick_name": "小黄人",
-                "user_name": "欧阳清",
-                "avatar_url": "https://wx.qlogo.cn/mmopen/vi_32/wUMSLGCic1FOhTM5yV1Nw3S7txib7v0Fp0TPogtegNUeqvKS9t0OFxRiaqo27KgxtwReJmicUkeHl3FX2fxVVuZwmA/0",
-                "gender": 2,
-                "city": "Hangzhou",
-                "province": "Zhejiang",
-                "country": "China",
-                "language": "zh_CN",
-                "status": "NORMAL",
-                "mobile": "13588235393",
-                "email": "xiaoni960@163.com",
-                "university": "杭州电子科技大学",
-                "subject": "数字媒体技术",
-                "degree": "本科",
-                "payment": "0.01"
-            },
-            {
-                "open_id": "olx8H0UHfk3RrzTe4ofZBWzl8J-0",
-                "nick_name": "小样儿960",
-                "user_name": "刘小倪",
-                "avatar_url": "https://wx.qlogo.cn/mmopen/vi_32/wUMSLGCic1FOhTM5yV1Nw3S7txib7v0Fp0TPogtegNUeqvKS9t0OFxRiaqo27KgxtwReJmicUkeHl3FX2fxVVuZwmA/0",
-                "gender": 2,
-                "city": "Hangzhou",
-                "province": "Zhejiang",
-                "country": "China",
-                "language": "zh_CN",
-                "status": "NORMAL",
-                "mobile": "13588235393",
-                "email": "xiaoni960@163.com",
-                "university": "杭州电子科技大学",
-                "subject": "数字媒体技术",
-                "degree": "本科",
-                "payment": "0.01"
-            }],
-      aUserList: [ {
-                "open_id": "olx8H0UHfk3RrzTe4ofZBWzl8J-0",
-                "nick_name": "小黄人",
-                "user_name": "欧阳清",
-                "status": "NORMAL",
-            },
-            {
-                "open_id": "olx8H0UHfk3RrzTe4ofZBWzl8J-0",
-                "nick_name": "小样儿960",
-                "user_name": "刘小倪",            
-                "status": "NORMAL",            
-            }],
+      userList: [],
+      aUserList: [],
       page: 1,
       user_name: '',
       total: 1
@@ -104,7 +56,7 @@ export default {
   mounted() {
     this.getUserNum();
     this.getUserList();
-    this.getAUserList();
+    //this.getAUserList();
   },
   methods: {
     getUserList() {
@@ -112,6 +64,7 @@ export default {
       Tools.callXNSHOPAPI('post', HttpUrl.USER_LIST, params, (data) => {
         console.log(data);
         this.userList = data.user_list;
+        this.aUserList = data.user_list;
       })
     },
     getAUserList() {

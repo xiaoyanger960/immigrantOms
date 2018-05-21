@@ -25,9 +25,9 @@
                 <td>{{ item.address }}</td>
                 <td>{{ item.desc }}</td>
                 <td>
-                   <a @click.stop="deleteUni(item.university_id)" class="margin-horizon-10 ">删除</a>
+                   <a @click.stop="deleteUni(item.id)" class="margin-horizon-10 ">删除</a>
                 </td>
-                <td><router-link :to="{name: '新建高校', query: { university_id: item.university_id }}">编辑</router-link></td>
+                <td><router-link :to="{name: '新建高校', query: { id: item.id }}">编辑</router-link></td>
               </tr>
             </template>
           </tbody>
@@ -48,37 +48,19 @@ export default {
     return {
       total: 1,
       page: 1,
-      universityList: [ {
-                "university_id": 1,
-                "university_name": "Harvard",
-                "badge": "jss292424.png",
-                "image": "bsdihdjaass.png",
-                "rank": 1,
-                "status": "NORMAL",
-                "desc": "Philadelphia University is located in Philadelphia, Pennsylvania, USA. In 1884, the Philadelphia Philology School",
-                "address": "Philadelphia, Pennsylvania, USA"
-            },
-            {
-                "university_id": 2,
-                "university_name": "William and Mary College",
-                "badge": "jss26524.png",
-                "image": "bsdihd455ss.png",
-                "rank": 2,
-                "status": "NORMAL",
-                "desc": "Founded in 1693, the William and Mary College, also known as the William and Mary College, is the second oldest institution of higher education in the nation with a history just behind Harvard University founded in 1636",
-                "address": "Virginia, United States"
-            },]
+      universityList: []
     }
   },
   mounted() {
     //this.getUniversityNum();
-    //this.getUniversityList();
+    this.getUniversityList();
   },
   methods: {
     getUniversityList() {
       const params =  { page: this.page };
       Tools.callXNSHOPAPI('post', HttpUrl.UNIVERSITY_LIST, params, (data) => {
-        this.universityList = data.list;
+        console.log(data);
+        this.universityList = data;
       })
     },
     getUniversityNum() {
@@ -92,7 +74,7 @@ export default {
         title: '提醒',
         content: '<p>确定删除该高校吗？</p>',
         onOk: () => {
-          Tools.callXNSHOPAPI('post', HttpUrl.DELETE_UNIVERSITY, {university_id: id}, () => {
+          Tools.callXNSHOPAPI('post', HttpUrl.DELETE_UNIVERSITY, {id: id}, () => {
             Tools.toast('success', '删除成功!');
             this.getUniversityList();
           })

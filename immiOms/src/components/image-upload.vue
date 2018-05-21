@@ -6,9 +6,10 @@
         <img :src="imgUrl" alt="">
       </div>
       <div :class="['upload-cover', disabled ? 'has-disabled' : '']">
-        <span class="icon" @click="delPic">
+        <Icon type="trash-a" @click="delPic"></Icon>
+        <!--<span class="icon" @click="delPic">
           <i class="fa fa-trash"></i>
-        </span>
+        </span>-->
       </div>
     </div>
     <!-- 上传图片组件 imgUrl不存在时显示上传图标 支持拖拽 上传文件的字段名为file 接受上传的类型为图片 文件视频等会被过滤
@@ -20,7 +21,7 @@
       :max-size="maxSize"
       accept="image/*"
       :format="['jpg', 'jpeg', 'png', 'gif', 'svg', 'bmp']"
-      :data="{token: token, type: type}"
+      :data="{type:type}"
       :show-upload-list="false"
       :on-error="handleError"
       :on-format-error="handleFormatError"
@@ -28,7 +29,7 @@
       :on-success="handleSuccess"
       :action="uploadUrl">
       <div>
-        <span class="icon"><i class="fa fa-camera" style="color: #3399ff"></i></span>
+        <Icon type="camera"></Icon><!--<span class="icon"><i class="fa fa-camera" style="color: #3399ff"></i></span>-->
       </div>
     </Upload>
   </div>
@@ -49,15 +50,14 @@ export default {
   },
   data() {
     return {
-      //取代以前的语法 Tools.getDomain()+'upload/'+this.type+'/'+this.image
-      imgUrl: this.image ? `${Tools.getDomain()}upload/${this.type}/${this.image}` : '',
+      imgUrl: this.image ? `${Tools.getImgHost()}upload/${this.type}/${this.image}` : '',
       uploadUrl: Tools.getDomain() + HttpUrl.UPLOAD_IMAGE,
       token: Tools.CookieHelper.getToken(),
     }
   },
   watch: {
     image(newVal) {
-      this.imgUrl = newVal ? `${Tools.getDomain()}upload/${this.type}/${newVal}` : '';
+      this.imgUrl = newVal ? `${Tools.getImgHost()}upload/${this.type}/${newVal}` : '';
     }
   },
   mounted(){
@@ -79,7 +79,7 @@ export default {
     },
     //上传成功时的处理函数
     handleSuccess(res, file) {
-     // console.log(res);
+      console.log(res);
      /*"code": "OK",
      "data": {
         "image": {
@@ -90,7 +90,7 @@ export default {
         }
     }*/
       const { image_save_name } = res.data.image;
-      this.imgUrl = `${Tools.getDomain()}upload/${this.type}/${image_save_name}`;
+      this.imgUrl = `${Tools.getImgHost()}upload/${this.type}/${image_save_name}`;
       this.$emit('success', this.type, res.data.image);
     },
     delPic() {

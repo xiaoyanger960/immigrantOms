@@ -5,7 +5,7 @@
         <div class="avatar-pic-area" style="text-align: center">
           <div class="pic-1">
             <!--  @success="addImage"监听子组件的success事件  -->
-            <ImageUpload width="150px" type="BADGE" :image="default_img['BADGE'][0]" @success="addImage" @delete="delImage('BADGE', 0)"></ImageUpload>
+            <ImageUpload width="150px" type="university" :image="default_img['university'][0]" @success="addImage" @delete="delImage('university', 0)"></ImageUpload>
           </div>
         </div>
         <div class="form-row">
@@ -64,6 +64,7 @@ export default {
         PHOTO: []
       },
       default_img: {
+        university:[''],
         BADGE: [''],
         PHOTO: ['']
       },
@@ -106,11 +107,12 @@ export default {
     },
     //监听子组件上传图片成功事件 传递来的参数是type和image对象
     addImage(type, image) {
-        this.product_attr[type].push(JSON.stringify(image));
+      console.log(type,image)
+        /*this.product_attr[type].push(JSON.stringify(image));
         if (this.edit_status) {
           this.default_img[type].push(image.image_save_name);
           this.add_product_attr[type].push(JSON.stringify(image));
-        }      
+        }     */ 
     },
     delImage(type, index) {
         const { attr_id, image_id } = this.product_attr[type][index];

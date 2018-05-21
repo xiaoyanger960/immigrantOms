@@ -4,8 +4,9 @@ import qs from "qs";
 import { Message, Spin } from "iview";
 
 export const Tools = {
-        apiUrlBase: (process.env.NODE_ENV === 'development' ? 'https:/localhost:8080/' : ''),
-        callImmiAPI: function (method, url, data, callbackForOK, callbackForFail, callbackForAlways) {
+        apiUrlBase:'http://localhost:8088/immigrantApi/index.php/',
+        /*apiUrlBase: (process.env.NODE_ENV === 'development' ? 'http://localhost:8088/immigrantApi/index.php/' : ''),*/
+        callXNSHOPAPI: function (method, url, data, callbackForOK, callbackForFail, callbackForAlways) {
             let data_with_token = Object.assign({token: Tools.CookieHelper.getToken()}, data);
             if (method === 'get') {
                 let a1 = [];
@@ -108,6 +109,9 @@ export const Tools = {
         },
         getDomain: function () {
             return this.apiUrlBase;
+        },
+        getImgHost: function () {
+            return 'http://localhost:8088/immigrantApi/';
         },
         toast: function(type, message) {
             Message[type](message);

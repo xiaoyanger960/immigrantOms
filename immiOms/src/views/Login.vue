@@ -24,8 +24,8 @@ export default {
   data() {
     return {
       form: {
-        username: 'admin',
-        password: '123456789'
+        username: 'huazi',
+        password: '123456'
       },
       btn_loading: false,  
       remenber: false
@@ -47,10 +47,10 @@ export default {
 
       /*Tools.callXNSHOPAPI('post', url, form, (data) => {
         Tools.toast('success', '登陆成功！');
+        console.log(data);
         const { token } = data;
         Tools.CookieHelper.setToken(token, form.username, 36000)
         Tools.CookieHelper.addLimitFlag(!flag);
-        if (!flag) sessionStorage.setItem('shopInfo', JSON.stringify(data.shop_info));
         this.btn_loading = false;
         this.$router.push({path: '/'})
       }, () => {
