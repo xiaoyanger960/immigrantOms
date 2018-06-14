@@ -3,7 +3,7 @@ const  HttpUrl={
     ROOT_LOGIN:'public/rootLogin',
 
     //获取用户列表
-    USER_LIST:'public/userList',
+    USER_LIST:'UserController/userList',
 
     //获取用户简单列表 (这个无)
     //AAUSER_LIST:'UserController/getAAUserList',
@@ -12,18 +12,31 @@ const  HttpUrl={
     UNIVERSITY_LIST:'public/universityList',
 
     //上传图片
-    UPLOAD_IMAGE : 'public/uploadImage',
+    UPLOAD_IMAGE : 'ImageController/uploadImage',
+
+    //新增高校接口
+    ADD_UNIVERSITY:'public/saveUniversityInfo',
+
+    //删除高校
+    DELETE_UNIVERSITY:'public/deleteUniversity',
     
     //获取单个高校信息
-    UNIVERSITY_ITEM:'UniversityController/displayUniversity',
-    //新增高校接口
-    ADD_UNIVERSITY:'UniversityController/addUniversity',
+    UNIVERSITY_ITEM:'public/universityInfo',
+
+    //订单列表接口
+    ORDER_LIST:'OrderController/getAllOrders',
+
+    //更改订单状态
+    CHANGE_ORDER_STATUS:'OrderController/adminChangeOrderStatus',
+
+
+
+    
+
     //编辑高校接口
     EDIT_UNIVERSITY:'UniversityController/editUniversity',
-    //删除高校
-    DELETE_UNIVERSITY:'UniversityController/deleteUniversity',
-    //订单列表接口
-    ORDER_LIST:'SalesController/listOrder',
+
+
     //订单服务状态接口
     SERVE_ORDER:'SalesController/serveOrder',
     //删除已完成订单

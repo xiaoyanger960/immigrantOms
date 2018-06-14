@@ -4,8 +4,7 @@
       <div class="ap-head-input" id='head'>
         <div class="avatar-pic-area" style="text-align: center">
           <div class="pic-1">
-            <!--  @success="addImage"监听子组件的success事件  -->
-            <ImageUpload width="150px" type="university" :image="default_img['university'][0]" @success="addImage" @delete="delImage('university', 0)"></ImageUpload>
+            <ImageUpload width="150px" type="badge" :image="default_img['university'][0]" @success="addImage" @delete="delImage('university', 0)"></ImageUpload>
           </div>
         </div>
         <div class="form-row">
@@ -28,7 +27,7 @@
             <Input v-model="university.desc" :autosize="{minRows: 5}" type="textarea"></Input>
           </FormItem>
           <FormItem label="高校图片" class="PHOTO">
-            <ImageUpload v-for="(item, index) in Array.from({length: product_attr['PHOTO'].length + 1})" width="320px" height="240px" type="PHOTO" :image="default_img['PHOTO'][index]"  @success="addImage" @delete="delImage('PHOTO', index)" :key="index"></ImageUpload>
+            <ImageUpload  width="320px" height="240px" type="university"  @success="addImage" @delete="delImage('PHOTO', index)" :key="index"></ImageUpload>
           </FormItem>
           <FormItem v-if="edit_status">
             <button class="button is-info" type="button" @click="update">修改</button>
@@ -53,12 +52,20 @@ export default {
     return {
       currentIdx: -1,
       edit_status: false,
-      good: {}, //编辑时的传递来的数据
       university: {
         university_name: '',
         address: '',
         desc: '',
+        rank:'',
+        photo:'',
+        badge:'',
       },
+
+
+
+      good: {}, //编辑时的传递来的数据
+
+
       product_attr: {
         BADGE: [],
         PHOTO: []
@@ -79,7 +86,9 @@ export default {
     this.good = {};
     this.edit_status = false;
     //this.$route.query父路由向子路由传递的数据
+    console.log(this.$route.query);
     const { university_id } = this.$route.query;
+    console.log(university_id);
     if (university_id) {
       this.edit_status = true;
       this.getUniversityDetail(university_id)
@@ -89,12 +98,14 @@ export default {
     //获取单个商品信息
     getUniversityDetail(university_id) {
       Tools.callXNSHOPAPI('post', HttpUrl.UNIVERSITY_ITEM, {university_id}, (data) => {
-        this.good = data.universityItem[university_id];
+        console.log(data);
+        this.university=data;
+        this.good = data;
         this.loadGoodInfo();
       })
     },
     loadGoodInfo() {
-      const { avatar, detail_image_list,  desc,  university_name, address} = this.good;
+      /*const { avatar, detail_image_list,  desc,  university_name, address} = this.good;
       this.university = { desc, university_name, address,};
       this.product_attr = {
         BADGE: [Object.assign({ attr_id: avatar.attr_id }, JSON.parse(avatar.attr_content))],
@@ -103,11 +114,18 @@ export default {
       for (const key in this.product_attr) {
         const element = this.product_attr[key];
         this.default_img[key] = element.map(item => item.image_save_name);
-      }
+      }*/
     },
     //监听子组件上传图片成功事件 传递来的参数是type和image对象
     addImage(type, image) {
       console.log(type,image)
+      if(type=='badge'){
+         this.university.badge=image.image_id;
+      }
+      if(type=="university"){
+         this.university.photo=image.image_id;
+      }
+     
         /*this.product_attr[type].push(JSON.stringify(image));
         if (this.edit_status) {
           this.default_img[type].push(image.image_save_name);
@@ -132,17 +150,19 @@ export default {
       for (const key in this.university) {
         const element = this.university[key];
       }
-      if (flag && !Object.values(this.product_attr).some(item => item.length !== 0)) {
+      /*if (flag && !Object.values(this.product_attr).some(item => item.length !== 0)) {
         Tools.toast('warning', '请完善高校图片信息')
         flag = false;
-      }
+      }*/
       return flag;
     },
     submit() {
       const flag = this.checkForm();
       if (flag) {     
-        const form = Object.assign({}, this.university, {product_attr: this.product_attr })
+        //const form = Object.assign({}, this.university, {product_attr: this.product_attr })
+        const form = this.university;
         Tools.callXNSHOPAPI('post', HttpUrl.ADD_UNIVERSITY, form, () => {
+          console.log(data);
           Tools.toast('success', {content: '新建高校成功', duration: 2, onClose: () => this.$router.push('/university/manage')});
         });
       }

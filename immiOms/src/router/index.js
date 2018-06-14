@@ -9,7 +9,6 @@ import University from '@/views/university/University'
 import AddUniversity from '@/views/university/AddUniversity'
 import User from '@/views/user/User'
 import Order from '@/views/order/Order'
-import login from '@/views/Login'
 
 Vue.use(Router)  //显式声明要使用路由插件
 

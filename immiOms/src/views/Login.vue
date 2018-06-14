@@ -36,26 +36,26 @@ export default {
       this.btn_loading = true;
       const url =  HttpUrl.ROOT_LOGIN;
       const form = this.form;
-      if(form.username){
+      /*if(form.username){
           Tools.toast('success', '登陆成功！');
           this.btn_loading = false;
            Tools.CookieHelper.setToken('123456789', 'admin', 36000)
           this.$router.push({path: '/'})
       }else{
           this.btn_loading = false;
-      }
+      }*/
 
-      /*Tools.callXNSHOPAPI('post', url, form, (data) => {
+      Tools.callXNSHOPAPI('post', url, form, (data) => {
         Tools.toast('success', '登陆成功！');
         console.log(data);
         const { token } = data;
         Tools.CookieHelper.setToken(token, form.username, 36000)
-        Tools.CookieHelper.addLimitFlag(!flag);
+        //Tools.CookieHelper.addLimitFlag(!flag);
         this.btn_loading = false;
         this.$router.push({path: '/'})
       }, () => {
         this.btn_loading = false;
-      })*/
+      })
     },
   }
 }

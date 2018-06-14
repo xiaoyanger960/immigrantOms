@@ -19,7 +19,7 @@
           <tbody>
             <template v-for="(item, index) in universityList">
               <tr :key="index">            
-                <td><img :src="item.avatar | getImageUrl" class="avatar"></td>
+                <td><img :src="item.badge_path | getImageUrl" class="avatar"></td>
                 <td>{{ item.university_name }}</td>
                 <td>{{ item.rank }}</td>
                 <td>{{ item.address }}</td>
@@ -27,7 +27,7 @@
                 <td>
                    <a @click.stop="deleteUni(item.id)" class="margin-horizon-10 ">删除</a>
                 </td>
-                <td><router-link :to="{name: '新建高校', query: { id: item.id }}">编辑</router-link></td>
+                <td><router-link :to="{name: '新建高校', query: { university_id: item.id }}">编辑</router-link></td>
               </tr>
             </template>
           </tbody>
@@ -74,7 +74,7 @@ export default {
         title: '提醒',
         content: '<p>确定删除该高校吗？</p>',
         onOk: () => {
-          Tools.callXNSHOPAPI('post', HttpUrl.DELETE_UNIVERSITY, {id: id}, () => {
+          Tools.callXNSHOPAPI('post', HttpUrl.DELETE_UNIVERSITY, {university_id: id}, () => {
             Tools.toast('success', '删除成功!');
             this.getUniversityList();
           })
@@ -84,7 +84,11 @@ export default {
   },
   filters: {
     getImageUrl(val) {
-      const obj = val;
+      var badge_path = val;
+      if (badge_path) {
+        badge_path=badge_path.replace(/\\/ig, '/');
+        return `${Tools.showImgHost()}${badge_path}`
+      }
       /*if (obj.hasOwnProperty('badge')) {
         return `${Tools.getDomain()}upload/${obj.upload_path}/${obj.image_save_name}`
       }*/

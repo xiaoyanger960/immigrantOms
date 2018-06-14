@@ -18,24 +18,24 @@
           </thead>
           <tbody>
             <template v-for="(item, index) in orderList" >
-              <tr :key="'g'+index">
+              <tr :key="index">
                 <td>{{ item.order_sn }}</td>               
                 <td>{{ item.order_time }}</td>
                 <td>{{ item.immigration_type }}</td>
                 <td>{{ item.publication}}</td>
                 <td>{{ item.citation }}</td>
                 <td>{{ item.review }}</td>
-                <td>{{ item.user_info.user_name }}</td>
-                <td>{{ item.user_info.nick_name }}</td>
+                <td>{{ item.review }}</td>
+                <td>{{ item.review }}</td>
                 <td>
                   <span v-show="item.status=='INIT'">待付款</span>
                   <span v-show="item.status=='PAID'">待服务</span>
-                  <span v-show="item.status=='SERVED'">已服务</span>
+                  <span v-show="item.status=='SERVICED'">已服务</span>
                   <span v-show="item.status=='CANCELLED'">已取消</span>
                 </td>
                 <td>
                   <template >
-                    <a @click="served(index)" v-show="item.status=='PAID'">完成服务</a>
+                    <a @click="served(index,item.order_id)" v-show="item.status=='PAID'">完成服务</a>
                     <a @click="deleteOrder(index)" v-show="item.status=='SERVED'">删除</a>
                   </template>                  
                 </td>
@@ -57,128 +57,7 @@ export default {
   name: 'Order',
   data() {
     return {
-      orderList: [{ 
-                "order_id": 1,
-                "order_sn": "18021250445844",
-                "open_id": "olx8H0Tx0rlev97sa2bCIOQcWVKo",
-                "status": "INIT",
-                "payment": "200.00",
-                "order_time": "2018-02-05 10:31:42",
-                "pay_time": null,
-                "publication": 200,
-                "citation": 200,
-                "review": 100,
-                "immigration_type": "EB1A",
-                 "user_info":{
-                      "open_id": "olx8H0UHfk3RrzTe4ofZBWzl8J-0",
-                      "nick_name": "小样儿960",
-                      "user_name": "刘小倪",
-                      "avatar_url": "https://wx.qlogo.cn/mmopen/vi_32/wUMSLGCic1FOhTM5yV1Nw3S7txib7v0Fp0TPogtegNUeqvKS9t0OFxRiaqo27KgxtwReJmicUkeHl3FX2fxVVuZwmA/0",
-                      "gender": 2,
-                      "city": "Hangzhou",
-                      "province": "Zhejiang",
-                      "country": "China",
-                      "language": "zh_CN",
-                      "status": "NORMAL",
-                      "mobile": "13588235393",
-                      "email": "xiaoni960@163.com",
-                      "university": "杭州电子科技大学",
-                      "subject": "数字媒体技术",
-                      "degree": "本科",
-                       }        
-                },
-              {  
-                "order_id": 2,
-                "order_sn": "18021250445844",
-                "open_id": "olx8H0Tx0rlev97sa2bCIOQcWVKo",
-                "status": "PAID",
-                "payment": "200.00",
-                "order_time": "2018-02-05 10:31:42",
-                "pay_time": null,
-                "publication": 200,
-                "citation": 200,
-                "review": 100,
-                "immigration_type": "EB1A",
-                 "user_info":{
-                      "open_id": "olx8H0UHfk3RrzTe4ofZBWzl8J-0",
-                      "nick_name": "小样儿960",
-                      "user_name": "刘小倪",
-                      "avatar_url": "https://wx.qlogo.cn/mmopen/vi_32/wUMSLGCic1FOhTM5yV1Nw3S7txib7v0Fp0TPogtegNUeqvKS9t0OFxRiaqo27KgxtwReJmicUkeHl3FX2fxVVuZwmA/0",
-                      "gender": 2,
-                      "city": "Hangzhou",
-                      "province": "Zhejiang",
-                      "country": "China",
-                      "language": "zh_CN",
-                      "status": "NORMAL",
-                      "mobile": "13588235393",
-                      "email": "xiaoni960@163.com",
-                      "university": "杭州电子科技大学",
-                      "subject": "数字媒体技术",
-                      "degree": "本科",
-            }                       
-         },
-          {  
-                "order_id": 2,
-                "order_sn": "18021250445844",
-                "open_id": "olx8H0Tx0rlev97sa2bCIOQcWVKo",
-                "status": "SERVED",
-                "payment": "200.00",
-                "order_time": "2018-02-05 10:31:42",
-                "pay_time": null,
-                "publication": 200,
-                "citation": 200,
-                "review": 100,
-                "immigration_type": "EB1A",
-                 "user_info":{
-                      "open_id": "olx8H0UHfk3RrzTe4ofZBWzl8J-0",
-                      "nick_name": "小样儿960",
-                      "user_name": "刘小倪",
-                      "avatar_url": "https://wx.qlogo.cn/mmopen/vi_32/wUMSLGCic1FOhTM5yV1Nw3S7txib7v0Fp0TPogtegNUeqvKS9t0OFxRiaqo27KgxtwReJmicUkeHl3FX2fxVVuZwmA/0",
-                      "gender": 2,
-                      "city": "Hangzhou",
-                      "province": "Zhejiang",
-                      "country": "China",
-                      "language": "zh_CN",
-                      "status": "NORMAL",
-                      "mobile": "13588235393",
-                      "email": "xiaoni960@163.com",
-                      "university": "杭州电子科技大学",
-                      "subject": "数字媒体技术",
-                      "degree": "本科",
-            }  
-             },
-              {  
-                "order_id": 2,
-                "order_sn": "18021250445844",
-                "open_id": "olx8H0Tx0rlev97sa2bCIOQcWVKo",
-                "status": "CANCELLED",
-                "payment": "200.00",
-                "order_time": "2018-02-05 10:31:42",
-                "pay_time": null,
-                "publication": 200,
-                "citation": 200,
-                "review": 100,
-                "immigration_type": "EB1A",
-                 "user_info":{
-                      "open_id": "olx8H0UHfk3RrzTe4ofZBWzl8J-0",
-                      "nick_name": "小样儿960",
-                      "user_name": "刘小倪",
-                      "avatar_url": "https://wx.qlogo.cn/mmopen/vi_32/wUMSLGCic1FOhTM5yV1Nw3S7txib7v0Fp0TPogtegNUeqvKS9t0OFxRiaqo27KgxtwReJmicUkeHl3FX2fxVVuZwmA/0",
-                      "gender": 2,
-                      "city": "Hangzhou",
-                      "province": "Zhejiang",
-                      "country": "China",
-                      "language": "zh_CN",
-                      "status": "NORMAL",
-                      "mobile": "13588235393",
-                      "email": "xiaoni960@163.com",
-                      "university": "杭州电子科技大学",
-                      "subject": "数字媒体技术",
-                      "degree": "本科",
-             }
-           }],
-     
-     
+      orderList: [],    
       query: {
         page: 1,
         page_size: 20
@@ -188,13 +67,14 @@ export default {
   },
   mounted() {
       //this.getOrderNum();
-      //this.getOrderList();
+      this.getOrderList();
   },
   methods: {
     getOrderList() { 
       const params=''
       Tools.callXNSHOPAPI('post',  HttpUrl.ORDER_LIST, params, (data) => {
-        this.orderList = data.list;
+        console.log(data);
+        this.orderList = data.order_list;
       })
     },
     getOrderNum() { 
@@ -203,13 +83,13 @@ export default {
         this.total = Number(data.total_num);
       })
     },
-    served(index, idx) {
+    served(index, id) {
        this.$Modal.confirm({
         title: '服务',
         content: '<p>确认已经服务了吗？</p>',
         onOk: () => {
-          const order_id = idx || index;
-          Tools.callXNSHOPAPI('post', HttpUrl.SERVE_ORDER, { order_id }, () => {
+          const order_id = id;
+          Tools.callXNSHOPAPI('post', HttpUrl.CHANGE_ORDER_STATUS, { order_id:order_id,new_status:'SERVICED'}, () => {
             Tools.toast('success', '订单状态已更改为已服务！');
             this.getOrderList();
           })

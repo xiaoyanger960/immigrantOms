@@ -56,7 +56,7 @@ export const Tools = {
                 } else {
                     //在设置触发错误的请求时发生了错误
                     console.error(error);
-                    Tools.toast('error', error.data || 'error');
+                    //Tools.toast('error', error.data || 'error');
                 }
                 //console.log(error.config);
                 if (callbackForFail) {
@@ -113,12 +113,15 @@ export const Tools = {
         getImgHost: function () {
             return 'http://localhost:8088/immigrantApi/';
         },
+        showImgHost:function(){
+            return  'http://localhost:8088/immigrantApi/upload/';
+        },
         toast: function(type, message) {
             Message[type](message);
         },
         CookieHelper: {
-            tokenKey: "immigrant-token",
-            usernameKey: "immigrant-username",
+            tokenKey: "token",
+            usernameKey: "username",
             limitKey: "limit",
             isLogin: function () {
                 let token = Tools.CookieHelper.getToken();

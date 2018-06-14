@@ -21,7 +21,7 @@
       :max-size="maxSize"
       accept="image/*"
       :format="['jpg', 'jpeg', 'png', 'gif', 'svg', 'bmp']"
-      :data="{type:type}"
+      :data="{type:type,token:token}"
       :show-upload-list="false"
       :on-error="handleError"
       :on-format-error="handleFormatError"
